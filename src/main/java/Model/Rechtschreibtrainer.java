@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Rechtschreibtrainer {
     private List<Wortpaar> woerter;
+    private Wortpaar ausgewaehlt;
 
     public Rechtschreibtrainer() {
         this.woerter = new ArrayList<>();
@@ -16,29 +17,39 @@ public class Rechtschreibtrainer {
         this.woerter.add(wortpaar);
     }
 
-    public Wortpaar getRandomWort() {
+    public void getRandomWort() {
         Random random = new Random();
         int index = random.nextInt(this.woerter.size());
         int i = 0;
         for (Wortpaar w : this.woerter) {
             if (i == index) {
-                return w;
+                //return w;
+                this.ausgewaehlt = w;
             }
             i++;
         }
-        return null;
+        //return null;
     }
 
-    public Wortpaar getWortIndex(int index) {
+    public void getWortIndex(int index) {
         Random random = new Random();
         int i = 0;
 
         for (Wortpaar w : this.woerter) {
             if (i == index) {
-                return w;
+                //return w;
+                this.ausgewaehlt = w;
             }
             i++;
         }
-        return null;
+        //return null;
+    }
+
+    public boolean checkAnswer(String answer) {
+        if (answer.equals(this.ausgewaehlt.getWort())) {
+            this.ausgewaehlt = null;
+            return true;
+        }
+        else return false;
     }
 }
