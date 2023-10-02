@@ -1,4 +1,6 @@
-package Mode;
+package Model;
+
+import org.json.JSONObject;
 
 public class Wortpaar {
     private String url;
@@ -10,7 +12,7 @@ public class Wortpaar {
     }
 
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
     public void setUrl(String url) {
@@ -23,5 +25,13 @@ public class Wortpaar {
 
     public void setWort(String wort) {
         this.wort = wort;
+    }
+
+    public static Wortpaar fromJSON(JSONObject obj) {
+        String url = obj.getString("url");
+        String wort = obj.getString("wort");
+
+        Wortpaar w = new Wortpaar(url, wort);
+        return w;
     }
 }
