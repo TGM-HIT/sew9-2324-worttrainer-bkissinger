@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Rechtschreibtrainer
+ * @author Benjamin Kissinger
+ * @version 2023-10-04
+ */
 public class Rechtschreibtrainer {
     private List<Wortpaar> woerter;
     private Wortpaar ausgewaehlt;
