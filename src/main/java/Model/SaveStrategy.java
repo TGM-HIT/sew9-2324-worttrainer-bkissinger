@@ -1,4 +1,4 @@
-package Save;
+package Model;
 
 import Model.Rechtschreibtrainer;
 

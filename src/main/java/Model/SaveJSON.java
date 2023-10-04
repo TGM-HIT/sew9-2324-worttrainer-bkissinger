@@ -1,7 +1,5 @@
-package Save;
+package Model;
 
-import Model.Rechtschreibtrainer;
-import Model.Wortpaar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,14 +10,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Save {
-    public Save() {
-    }
+public class SaveJSON implements SaveStrategy {
 
-    public void setSave() {
-        
-    }
-    public static void saveObject(Rechtschreibtrainer trainer, String path) {
+    public void saveObject(Rechtschreibtrainer trainer, String path) {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
         JSONObject json = new JSONObject();
         JSONArray jsons = new JSONArray(trainer.getWoerter());
@@ -35,7 +28,7 @@ public class Save {
         }
     }
 
-    public static Rechtschreibtrainer loadObject(String path) {
+    public Rechtschreibtrainer loadObject(String path) {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
 
         try {

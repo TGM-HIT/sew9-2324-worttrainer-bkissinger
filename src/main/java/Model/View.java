@@ -1,7 +1,5 @@
 package Model;
 
-import Save.Save;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +16,11 @@ public class View {
     public static Rechtschreibtrainer loadFile(Rechtschreibtrainer t) {
         String path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
         File file = new File(path);
+        Save save = new Save();
+        save.setSaveStrategy(new SaveJSON());
 
         if (file.exists()) {
-            t= Save.loadObject(path);
+            t= save.loadObject(path);
             return t;
         } else {
             t.addWort("URLKatze", "Katze");
@@ -45,7 +45,7 @@ public class View {
             JPanel panel = new JPanel(new BorderLayout());
             panel.add(imageLabel, BorderLayout.CENTER);
 
-            input = JOptionPane.showInputDialog(null, panel, "Welches Wort ist das?", JOptionPane.PLAIN_MESSAGE);
+            input = JOptionPane.showInputDialog(null, panel, "Welches Wort ist das?", JOptionPane.PLAIN_MESSAGE).toLowerCase();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Fehler beim Laden des Bildes.", "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -58,6 +58,8 @@ public class View {
     }
     public static void main(String[] args) {
         Rechtschreibtrainer t = new Rechtschreibtrainer();
+        Save save = new Save();
+        save.setSaveStrategy(new SaveJSON());
         String input = "", wort="";
         boolean wf = false;
         int index = -1;
@@ -92,17 +94,10 @@ public class View {
             input = JOptionPane.showInputDialog(null, "Noch ein Bild?");
             if (input.equals("no")) {
                 t.getRandomWort();
-                Save.saveObject(t, "");
+                save.saveObject(t, "");
                 JOptionPane.showMessageDialog(null, "Aktueller Stand gespeichert!");
                 break;
             }
         }while(true);
-
-
-
-
-        // String input = showImg("https://api.ardmediathek.de/image-service/images/urn:ard:image:3dab66faa8140d8b?w=448&ch=9e935de585dfb889");
-
-
     }
 }
