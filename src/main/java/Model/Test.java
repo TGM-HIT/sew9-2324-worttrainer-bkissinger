@@ -1,6 +1,6 @@
 package Model;
 
-import javax.swing.*;
+import Save.Save;
 
 public class Test {
     public static void main(String[] args) {

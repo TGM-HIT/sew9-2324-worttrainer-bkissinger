@@ -1,5 +1,7 @@
-package Model;
+package Save;
 
+import Model.Rechtschreibtrainer;
+import Model.Wortpaar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +14,10 @@ import java.util.List;
 
 public class Save {
     public Save() {
+    }
+
+    public void setSave() {
+        
     }
     public static void saveObject(Rechtschreibtrainer trainer, String path) {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";

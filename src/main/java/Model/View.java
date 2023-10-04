@@ -1,11 +1,12 @@
 package Model;
 
+import Save.Save;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class View {
@@ -19,7 +20,7 @@ public class View {
         File file = new File(path);
 
         if (file.exists()) {
-            t=Save.loadObject(path);
+            t= Save.loadObject(path);
             return t;
         } else {
             t.addWort("URLKatze", "Katze");
@@ -30,7 +31,7 @@ public class View {
         }
     }
 
-    public static String showImg(String urlTmp) {
+    public static String showImg(String urlTmp, Rechtschreibtrainer t) {
         String input = "";
         try {
             // Laden Sie das Bild von der URL herunter
@@ -44,12 +45,16 @@ public class View {
             JPanel panel = new JPanel(new BorderLayout());
             panel.add(imageLabel, BorderLayout.CENTER);
 
-            input = JOptionPane.showInputDialog(null, panel, "Bild anzeigen", JOptionPane.PLAIN_MESSAGE);
+            input = JOptionPane.showInputDialog(null, panel, "Welches Wort ist das?", JOptionPane.PLAIN_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Fehler beim Laden des Bildes.", "Fehler", JOptionPane.ERROR_MESSAGE);
         }
         return input;
+    }
+
+    public static void showStatistics(Rechtschreibtrainer t) {
+        JOptionPane.showMessageDialog(null, "Statistik: \n Richtig: " + t.getRichtig() + "\n Falsch: " + t.getFalsch());
     }
     public static void main(String[] args) {
         Rechtschreibtrainer t = new Rechtschreibtrainer();
@@ -72,15 +77,18 @@ public class View {
                 wort = t.getWortIndex(index);
             }
             do {
-                input = showImg(wort);
+                input = showImg(wort, t);
                 wf = t.checkAnswer(input);
                 if (!wf) {
                     JOptionPane.showMessageDialog(null, "Leider falsch, versuche es noch einmal!");
+                    t.setFalsch();
                 } else {
                     JOptionPane.showMessageDialog(null, "Glückwunsch!");
+                    t.setRichtig();
                     wf = true;
                 }
             }while(!wf);
+            showStatistics(t);
             input = JOptionPane.showInputDialog(null, "Noch ein Bild?");
             if (input.equals("no")) {
                 t.getRandomWort();

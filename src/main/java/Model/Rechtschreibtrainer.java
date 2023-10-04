@@ -7,7 +7,7 @@ import java.util.Random;
 public class Rechtschreibtrainer {
     private List<Wortpaar> woerter;
     private Wortpaar ausgewaehlt;
-    int richtig, int falsch;
+    private int richtig, falsch;
 
     public Rechtschreibtrainer() {
         this.woerter = new ArrayList<>();
@@ -63,6 +63,23 @@ public class Rechtschreibtrainer {
         }
         else return false;
     }
+
+    public int getRichtig() {
+        return richtig;
+    }
+
+    public void setRichtig() {
+        this.richtig++;
+    }
+
+    public int getFalsch() {
+        return falsch;
+    }
+
+    public void setFalsch() {
+        this.falsch++;
+    }
+
     public List<Wortpaar> getWoerter() {
         return this.woerter;
     }
