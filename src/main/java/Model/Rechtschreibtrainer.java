@@ -28,8 +28,10 @@ public class Rechtschreibtrainer {
 
 
     public void addWort(String url, String wort) {
-        Wortpaar wortpaar = new Wortpaar(url, wort);
-        this.woerter.add(wortpaar);
+        if (url != null && wort != null) {
+            Wortpaar wortpaar = new Wortpaar(url, wort);
+            this.woerter.add(wortpaar);
+        }
     }
 
     public String getRandomWort() {
@@ -61,7 +63,10 @@ public class Rechtschreibtrainer {
         return null;
     }
 
-    public boolean checkAnswer(String answer) {
+    public boolean checkAnswer(String answer) throws IllegalArgumentException{
+        if (answer == null) {
+            throw new IllegalArgumentException("Answer is null!");
+        }
         if (answer.equals(this.ausgewaehlt.getWort())) {
             this.ausgewaehlt = null;
             return true;
@@ -76,6 +81,9 @@ public class Rechtschreibtrainer {
     public void setRichtig() {
         this.richtig++;
     }
+    public void setRichtig(int r) {
+        this.richtig = r;
+    }
 
     public int getFalsch() {
         return falsch;
@@ -83,6 +91,9 @@ public class Rechtschreibtrainer {
 
     public void setFalsch() {
         this.falsch++;
+    }
+    public void setFalsch(int f) {
+        this.falsch = f;
     }
 
     public List<Wortpaar> getWoerter() {

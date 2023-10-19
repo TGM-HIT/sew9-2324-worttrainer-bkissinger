@@ -12,6 +12,11 @@ import java.util.List;
 
 public class SaveJSON implements SaveStrategy {
 
+    /**
+     * Übernimmt einen Trainer und speichert ihn als JSON an einer fixen Location.
+     * @param trainer Trainer
+     * @param path //
+     */
     public void saveObject(Rechtschreibtrainer trainer, String path) {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
         JSONObject json = new JSONObject();
@@ -19,7 +24,10 @@ public class SaveJSON implements SaveStrategy {
         json.put("woerter",jsons);
         json.put("url", trainer.getAusgewaehlt().getUrl());
         json.put("wort", trainer.getAusgewaehlt().getWort());
+        json.put("richtig:", trainer.getRichtig());
+        json.put("falsch", trainer.getFalsch());
 
+        // Schreibprozess
         try (FileWriter fileWriter = new FileWriter(path)) {
             fileWriter.write(json.toString());
             System.out.println("JSON wurde erfolgreich in die Datei geschrieben.");
@@ -28,9 +36,15 @@ public class SaveJSON implements SaveStrategy {
         }
     }
 
+    /**
+     * Lädt einen Worttrainer aus einem vorhandenen JSON-File
+     * @param path Pfad
+     * @return Worttrainer
+     */
     public Rechtschreibtrainer loadObject(String path) {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
 
+        // Extracting data...
         try {
             String jsonText = new String(Files.readAllBytes(Paths.get(path)));
             JSONObject json = new JSONObject(jsonText);
@@ -38,6 +52,8 @@ public class SaveJSON implements SaveStrategy {
             JSONArray jsons = json.getJSONArray("woerter");
             String url = json.getString("url");
             String wort = json.getString("wort");
+            int richtig = json.getInt("richtig");
+            int falsch = json.getInt("falsch");
 
             Wortpaar ausgewaehlt = new Wortpaar(url, wort);
 
@@ -47,7 +63,10 @@ public class SaveJSON implements SaveStrategy {
                 woerter.add(Wortpaar.fromJSON(obj));
             }
 
+            // Neuen Trainer erstellen
             Rechtschreibtrainer trainer = new Rechtschreibtrainer(woerter, ausgewaehlt);
+            trainer.setRichtig(richtig);
+            trainer.setFalsch(falsch);
             return trainer;
 
         } catch (IOException e) {

@@ -6,6 +6,11 @@ public class Wortpaar {
     private String url;
     private String wort;
 
+    /**
+     * Wortpaat besteht aus
+     * @param url
+     * @param wort
+     */
     public Wortpaar(String url, String wort) {
         this.url = url;
         this.wort = wort;
@@ -16,7 +21,11 @@ public class Wortpaar {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        if (url != null) {
+            this.url = url;
+        } else {
+            throw new IllegalArgumentException("Answer is null!");
+        }
     }
 
     public String getWort() {

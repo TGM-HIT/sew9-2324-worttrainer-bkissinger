@@ -9,10 +9,11 @@ import java.net.URL;
 
 public class View {
 
-    public View() {
-
-    }
-
+    /**
+     * Überprüft, ob ein File vorhanden ist. Falls ja, wird ein geladener Trainer zurückgegeben.
+     * @param t Trainer, der zu befüllen ist
+     * @return Trainer
+     */
     public static Rechtschreibtrainer loadFile(Rechtschreibtrainer t) {
         String path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
         File file = new File(path);
@@ -31,6 +32,12 @@ public class View {
         }
     }
 
+    /**
+     * Methoode zum Anzeigen von Bilder
+     * @param urlTmp Url
+     * @param t Trainer
+     * @return Input von JOPtionPane
+     */
     public static String showImg(String urlTmp, Rechtschreibtrainer t) {
         String input = "";
         try {
@@ -53,10 +60,15 @@ public class View {
         return input;
     }
 
+    /**
+     * Statistik anzeigen
+     * @param t trainer
+     */
     public static void showStatistics(Rechtschreibtrainer t) {
         JOptionPane.showMessageDialog(null, "Statistik: \n Richtig: " + t.getRichtig() + "\n Falsch: " + t.getFalsch());
     }
     public static void main(String[] args) {
+
         Rechtschreibtrainer t = new Rechtschreibtrainer();
         Save save = new Save();
         save.setSaveStrategy(new SaveJSON());
@@ -64,20 +76,27 @@ public class View {
         boolean wf = false;
         int index = -1;
         t=loadFile(t);
+
+        // Überprüfen, ob Sicherung vorhanden ist
         if (t == null) {
             JOptionPane.showMessageDialog(null, "Keine Sicherungen vorhanden!");
         } else {
             JOptionPane.showMessageDialog(null, "Sicherungen vorhanden!");
         }
 
+        // Der Vorgang des Trainers
         do {
+            // Random oder Index?
             input = JOptionPane.showInputDialog(null, "Random oder Index");
             if (input.equals("random")) {
                 wort = t.getRandomWort();
             } else {
+                // Falls Index: Index abfragen
                 index = Integer.parseInt(JOptionPane.showInputDialog(null, "Welcher index?"));
                 wort = t.getWortIndex(index);
             }
+
+            // Inputfeld anzeigen
             do {
                 input = showImg(wort, t);
                 wf = t.checkAnswer(input);
@@ -90,11 +109,16 @@ public class View {
                     wf = true;
                 }
             }while(!wf);
+            // Statistik anzeigen
             showStatistics(t);
+
+            // Noch ein Bild?
             input = JOptionPane.showInputDialog(null, "Noch ein Bild?");
+
+            // Falls nicht speichern und breaken
             if (input.equals("no")) {
                 t.getRandomWort();
-                save.saveObject(t, "");
+                save.saveObject(t, "./data/worttrainer.json");
                 JOptionPane.showMessageDialog(null, "Aktueller Stand gespeichert!");
                 break;
             }
