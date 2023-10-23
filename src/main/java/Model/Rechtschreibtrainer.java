@@ -14,10 +14,18 @@ public class Rechtschreibtrainer {
     private Wortpaar ausgewaehlt;
     private int richtig, falsch;
 
+    /**
+     * Erstellt einen leeren Worttrainer
+     */
     public Rechtschreibtrainer() {
         this.woerter = new ArrayList<>();
     }
 
+    /**
+     * Erstellt einen Worttrainer
+     * @param woerter woerter als liste
+     * @param ausgewaehlt ausgewaehltes Wortpaar
+     */
     public Rechtschreibtrainer(List<Wortpaar> woerter, Wortpaar ausgewaehlt) {
         this.woerter = woerter;
         this.ausgewaehlt = ausgewaehlt;
@@ -26,7 +34,11 @@ public class Rechtschreibtrainer {
     }
 
 
-
+    /**
+     * Added ein Wort
+     * @param url URL
+     * @param wort Wort
+     */
     public void addWort(String url, String wort) {
         if (url != null && wort != null) {
             Wortpaar wortpaar = new Wortpaar(url, wort);
@@ -34,6 +46,10 @@ public class Rechtschreibtrainer {
         }
     }
 
+    /**
+     * Sucht ein Random Wort raus
+     * @return Random wort
+     */
     public String getRandomWort() {
         Random random = new Random();
         int index = random.nextInt(this.woerter.size());
@@ -49,6 +65,11 @@ public class Rechtschreibtrainer {
         return null;
     }
 
+    /**
+     * Sicht ein Wort mit einem Index heraus
+     * @param index
+     * @return Wort
+     */
     public String getWortIndex(int index) {
         Random random = new Random();
         int i = 0;
@@ -63,6 +84,12 @@ public class Rechtschreibtrainer {
         return null;
     }
 
+    /**
+     * Überprüft die Antwort
+     * @param answer Antwort vom User
+     * @return true/false für richtig/falsch
+     * @throws IllegalArgumentException falls Antwort null ist
+     */
     public boolean checkAnswer(String answer) throws IllegalArgumentException{
         if (answer == null) {
             throw new IllegalArgumentException("Answer is null!");

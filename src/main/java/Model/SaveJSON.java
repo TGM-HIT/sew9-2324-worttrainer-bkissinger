@@ -21,11 +21,11 @@ public class SaveJSON implements SaveStrategy {
         path = "/home/ben10/Dokumente/SEW/WorttrainerReloaded_Kissinger4BHIT/WorttrainerReloaded_Kissinger4BHIT/data/worttrainer.json";
         JSONObject json = new JSONObject();
         JSONArray jsons = new JSONArray(trainer.getWoerter());
+        json.put("richtig", trainer.getRichtig());
+        json.put("falsch", trainer.getFalsch());
         json.put("woerter",jsons);
         json.put("url", trainer.getAusgewaehlt().getUrl());
         json.put("wort", trainer.getAusgewaehlt().getWort());
-        json.put("richtig:", trainer.getRichtig());
-        json.put("falsch", trainer.getFalsch());
 
         // Schreibprozess
         try (FileWriter fileWriter = new FileWriter(path)) {
